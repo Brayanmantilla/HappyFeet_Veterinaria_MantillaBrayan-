@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiciosDAO implements IServiciosDAO {
+    public ServiciosDAO(Connection connection) {
+    }
+
     @Override
     public boolean insertar(Servicio servicio) {
         String sql = "INSERT INTO servicios (nombre, descripcion, precio) VALUES (?, ?, ?)";

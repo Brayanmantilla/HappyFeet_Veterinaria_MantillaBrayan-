@@ -1,21 +1,36 @@
 package happyfeet.model.enums;
 
 public enum CitaEstado {
-    PROGRAMADA("Programada"),
-    ENPROCESO("En proceso"),
-    FINALIZADA("Finalizada"),
-    CANCELADA("Cancelada"),
-    REPROGRAMADA("Reprogramada"),
-    NOASISTIO("No asistio");
+    PROGRAMADA(1, "Programada"),
+    ENPROCESO(2, "En proceso"),
+    FINALIZADA(3, "Finalizada"),
+    CANCELADA(4, "Cancelada"),
+    REPROGRAMADA(5, "Reprogramada"),
+    NOASISTIO(6, "No asistió");
 
-    private final String citaEstado;
+    private final int id;
+    private final String nombre;
 
-    CitaEstado(String citaEstado){
-        this.citaEstado = citaEstado;
+    CitaEstado(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
-    public String getCitaEstado(){
-        return citaEstado;
+    public int getId() {
+        return id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Método estático para obtener enum desde ID
+    public static CitaEstado fromId(int id) {
+        for (CitaEstado estado : values()) {
+            if (estado.getId() == id) {
+                return estado;
+            }
+        }
+        return null; // o lanzar excepción
+    }
 }

@@ -7,6 +7,10 @@ public class Raza {
 
     public Raza(){}
 
+    public Raza(int idRaza){
+        this.idRaza=idRaza;
+    }
+
     public Raza(int idRaza, String nombreRaza, Especie especie) {
         this.idRaza = idRaza;
         this.nombreRaza = nombreRaza;
