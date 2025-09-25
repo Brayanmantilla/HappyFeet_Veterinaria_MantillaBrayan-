@@ -30,6 +30,17 @@ public class Empleado {
         this.salario = salario;
     }
 
+    public Empleado(int idEmpleado,String nombreEmpleado, String documentoEmpleado,
+                    String telefonoEmpleado, String emailEmpleado, String cargo, double salario) {
+        this.idEmpleado = idEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
+        this.documentoEmpleado = documentoEmpleado;
+        this.telefonoEmpleado = telefonoEmpleado;
+        this.emailEmpleado = emailEmpleado;
+        this.cargo = cargo;
+        this.salario = salario;
+    }
+
     public int getIdEmpleado() {
         return idEmpleado;
     }
