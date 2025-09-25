@@ -1,4 +1,4 @@
-especiesCREATE DATABASE happyfeetveterinariaa_;
+CREATE DATABASE happyfeetveterinariaa_;
 USE happyfeetveterinaria_;
 
 -- =========== TABLAS DE CATÁLOGOS ===========
