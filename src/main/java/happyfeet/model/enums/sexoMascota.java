@@ -1,8 +1,8 @@
 package happyfeet.model.enums;
 
 public enum sexoMascota {
-    MACHO("Macho"),
-    HEMBRA("Hembra");
+    Macho("Macho"),
+    Hembra("Hembra");
 
     private final String nombre;
 

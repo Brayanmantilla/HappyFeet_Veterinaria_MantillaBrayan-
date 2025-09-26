@@ -67,7 +67,32 @@ public class MascotaDAO implements IMascotaDAO {
     @Override
     public List<Mascota> listarTodos() throws SQLException {
         List<Mascota> lista = new ArrayList<>();
-        String sql = "SELECT * FROM mascotas";
+        String sql = """
+            SELECT 
+                m.id,
+                m.nombre,
+                m.fecha_nacimiento,
+                m.sexo,
+                m.url_foto,
+
+                r. id,
+                r.nombre,
+
+                e.id,
+                e.nombre,
+
+                d.id,
+                d.nombre_completo,
+                d.documento_identidad,
+                d.telefono,
+                d.email
+
+            FROM mascotas m
+            JOIN razas r    ON m.raza_id = r.id
+            JOIN especies e ON r.especie_id = e.id
+            JOIN duenos d   ON m.dueno_id= d.id
+            ORDER BY m.id;
+        """;
         try (PreparedStatement ps = connection.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -136,8 +161,8 @@ public class MascotaDAO implements IMascotaDAO {
     private Mascota mapResultSet(ResultSet rs) throws SQLException {
         // SOLUCIÓN TEMPORAL: Crear objetos Raza y Dueno solo con el ID,
         // asumiendo que tus clases Raza y Dueno tienen el constructor 'new Raza(int id)'.
-        Raza raza = new Raza(rs.getInt("raza_id"));
-        Dueno dueno = new Dueno(rs.getInt("dueno_id"));
+        Raza raza = new Raza(rs.getInt("id"));
+        Dueno dueno = new Dueno(rs.getInt("id"));
 
         LocalDate fecha = rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null;
 
