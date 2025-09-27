@@ -1,6 +1,7 @@
 package happyfeet.repository.DAO;
 
 import happyfeet.model.entities.Dueno;
+import happyfeet.model.entities.Especie;
 import happyfeet.model.entities.Mascota;
 import happyfeet.model.entities.Raza;
 import happyfeet.model.enums.sexoMascota;
@@ -15,19 +16,26 @@ import java.util.List;
 public class MascotaDAO implements IMascotaDAO {
     private final Connection connection;
 
-    // CONSTRUCTOR 1: Para uso directo (obtiene su propia conexión)
+    // CONSTRUCTOR 1: Para uso directo
     public MascotaDAO() throws SQLException {
         this.connection = Conexion.getConexion();
     }
 
-    // CONSTRUCTOR 2 (¡NECESARIO!): Para ser usado por otros DAOs (HistorialMedicoDAO)
+    // CONSTRUCTOR 2: Para uso externo
     public MascotaDAO(Connection connection) {
         this.connection = connection;
     }
 
+    // ============================================================
+    // INSERTAR
+    // ============================================================
     @Override
     public boolean insertar(Mascota mascota) throws SQLException {
-        String sql = "INSERT INTO mascotas (nombre, raza_id, fecha_nacimiento, sexo, url_foto, dueno_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = """
+            INSERT INTO mascotas
+                (nombre, raza_id, fecha_nacimiento, sexo, url_foto, dueno_id)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """;
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, mascota.getNombreMascota());
             ps.setInt(2, mascota.getRaza().getIdRaza());
@@ -49,10 +57,12 @@ public class MascotaDAO implements IMascotaDAO {
         return false;
     }
 
+    // ============================================================
+    // OBTENER POR ID
+    // ============================================================
     @Override
     public Mascota obtenerPorId(int id) throws SQLException {
-        // Asegúrate que tu columna se llama 'id' o 'id_mascota'
-        String sql = "SELECT * FROM mascotas WHERE id = ?";
+        String sql = SELECT_BASE + " WHERE m.id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -64,35 +74,13 @@ public class MascotaDAO implements IMascotaDAO {
         return null;
     }
 
+    // ============================================================
+    // LISTAR TODOS
+    // ============================================================
     @Override
     public List<Mascota> listarTodos() throws SQLException {
         List<Mascota> lista = new ArrayList<>();
-        String sql = """
-            SELECT 
-                m.id,
-                m.nombre,
-                m.fecha_nacimiento,
-                m.sexo,
-                m.url_foto,
-
-                r. id,
-                r.nombre,
-
-                e.id,
-                e.nombre,
-
-                d.id,
-                d.nombre_completo,
-                d.documento_identidad,
-                d.telefono,
-                d.email
-
-            FROM mascotas m
-            JOIN razas r    ON m.raza_id = r.id
-            JOIN especies e ON r.especie_id = e.id
-            JOIN duenos d   ON m.dueno_id= d.id
-            ORDER BY m.id;
-        """;
+        String sql = SELECT_BASE + " ORDER BY m.id";
         try (PreparedStatement ps = connection.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -102,9 +90,16 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
+    // ============================================================
+    // ACTUALIZAR
+    // ============================================================
     @Override
     public boolean actualizar(Mascota mascota) throws SQLException {
-        String sql = "UPDATE mascotas SET nombre=?, raza_id=?, fecha_nacimiento=?, sexo=?, url_foto=?, dueno_id=? WHERE id=?";
+        String sql = """
+            UPDATE mascotas
+               SET nombre=?, raza_id=?, fecha_nacimiento=?, sexo=?, url_foto=?, dueno_id=?
+             WHERE id=?
+        """;
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, mascota.getNombreMascota());
             ps.setInt(2, mascota.getRaza().getIdRaza());
@@ -113,11 +108,13 @@ public class MascotaDAO implements IMascotaDAO {
             ps.setString(5, mascota.getUrlFoto());
             ps.setInt(6, mascota.getIdDueno().getIdDueno());
             ps.setInt(7, mascota.getIdMascota());
-
             return ps.executeUpdate() > 0;
         }
     }
 
+    // ============================================================
+    // ELIMINAR
+    // ============================================================
     @Override
     public boolean eliminar(int id) throws SQLException {
         String sql = "DELETE FROM mascotas WHERE id = ?";
@@ -127,10 +124,13 @@ public class MascotaDAO implements IMascotaDAO {
         }
     }
 
+    // ============================================================
+    // BUSCAR POR NOMBRE
+    // ============================================================
     @Override
     public List<Mascota> buscarPorNombre(String nombre) throws SQLException {
         List<Mascota> lista = new ArrayList<>();
-        String sql = "SELECT * FROM mascotas WHERE nombre LIKE ?";
+        String sql = SELECT_BASE + " WHERE m.nombre LIKE ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, "%" + nombre + "%");
             try (ResultSet rs = ps.executeQuery()) {
@@ -142,10 +142,13 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
+    // ============================================================
+    // LISTAR POR DUEÑO
+    // ============================================================
     @Override
     public List<Mascota> listarPorDueno(int idDueno) throws SQLException {
         List<Mascota> lista = new ArrayList<>();
-        String sql = "SELECT * FROM mascotas WHERE dueno_id = ?";
+        String sql = SELECT_BASE + " WHERE d.id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idDueno);
             try (ResultSet rs = ps.executeQuery()) {
@@ -157,22 +160,70 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
-    // =================== MÉTODO AUXILIAR (Simplificado) ===================
-    private Mascota mapResultSet(ResultSet rs) throws SQLException {
-        // SOLUCIÓN TEMPORAL: Crear objetos Raza y Dueno solo con el ID,
-        // asumiendo que tus clases Raza y Dueno tienen el constructor 'new Raza(int id)'.
-        Raza raza = new Raza(rs.getInt("id"));
-        Dueno dueno = new Dueno(rs.getInt("id"));
+    // ============================================================
+    // CONSULTA BASE
+    // ============================================================
+    private static final String SELECT_BASE = """
+        SELECT 
+            m.id          AS m_id,
+            m.nombre      AS m_nombre,
+            m.fecha_nacimiento AS m_fecha_nacimiento,
+            m.sexo        AS m_sexo,
+            m.url_foto    AS m_url_foto,
+            r.id          AS r_id,
+            r.nombre      AS r_nombre,
+            e.id          AS e_id,
+            e.nombre      AS e_nombre,
+            d.id          AS d_id,
+            d.nombre_completo    AS d_nombre_completo,
+            d.documento_identidad AS d_documento,
+            d.direccion          AS d_direccion,
+            d.telefono           AS d_telefono,
+            d.email              AS d_email
+        FROM mascotas m
+        JOIN razas    r ON m.raza_id = r.id
+        JOIN especies e ON r.especie_id = e.id
+        JOIN duenos   d ON m.dueno_id = d.id
+    """;
 
-        LocalDate fecha = rs.getDate("fecha_nacimiento") != null ? rs.getDate("fecha_nacimiento").toLocalDate() : null;
+    // ============================================================
+    // MAPEO ResultSet -> Mascota
+    // ============================================================
+    private Mascota mapResultSet(ResultSet rs) throws SQLException {
+        // Especie
+        Especie especie = new Especie(
+                rs.getInt("e_id"),
+                rs.getString("e_nombre")
+        );
+
+        // Raza con especie
+        Raza raza = new Raza(
+                rs.getInt("r_id"),
+                rs.getString("r_nombre"),
+                especie
+        );
+
+        // Dueño (orden exacto del constructor)
+        Dueno dueno = new Dueno(
+                rs.getInt("d_id"),
+                rs.getString("d_nombre_completo"),
+                rs.getString("d_documento"),
+                rs.getString("d_direccion"),
+                rs.getString("d_telefono"),
+                rs.getString("d_email")
+        );
+
+        LocalDate fecha = rs.getDate("m_fecha_nacimiento") != null
+                ? rs.getDate("m_fecha_nacimiento").toLocalDate()
+                : null;
 
         return new Mascota(
-                rs.getInt("id"),
-                rs.getString("nombre"),
+                rs.getInt("m_id"),
+                rs.getString("m_nombre"),
                 raza,
                 fecha,
-                sexoMascota.valueOf(rs.getString("sexo")),
-                rs.getString("url_foto"),
+                sexoMascota.valueOf(rs.getString("m_sexo")),
+                rs.getString("m_url_foto"),
                 dueno
         );
     }
