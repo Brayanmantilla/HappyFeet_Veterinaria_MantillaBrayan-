@@ -28,10 +28,10 @@ public class ReporteService {
     public Map<String, Integer> obtenerServiciosMasSolicitados() {
         Map<String, Integer> serviciosConteo = new HashMap<>();
         String sql = """
-            SELECT s.nombre, COUNT(if.servicio_id) as total_solicitudes
+            SELECT s.nombre, COUNT(itf.servicio_id) as total_solicitudes
             FROM servicios s
-            LEFT JOIN items_factura if ON s.id = if.servicio_id
-            WHERE if.servicio_id IS NOT NULL
+            LEFT JOIN items_factura itf ON s.id = itf.servicio_id
+            WHERE itf.servicio_id IS NOT NULL
             GROUP BY s.id, s.nombre
             ORDER BY total_solicitudes DESC
             LIMIT 10

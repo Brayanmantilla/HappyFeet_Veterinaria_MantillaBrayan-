@@ -17,7 +17,7 @@ public class ServiciosDAO implements IServiciosDAO {
 
     @Override
     public boolean insertar(Servicio servicio) {
-        String sql = "INSERT INTO servicios (nombre, descripcion, precio) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO servicios (nombre, descripcion, precio_base) VALUES (?, ?, ?)";
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -45,7 +45,7 @@ public class ServiciosDAO implements IServiciosDAO {
                             rs.getInt("id"),
                             rs.getString("nombre"),
                             rs.getString("descripcion"),
-                            rs.getDouble("precio")
+                            rs.getDouble("precio_base")
                     );
                 }
             }
@@ -68,7 +68,7 @@ public class ServiciosDAO implements IServiciosDAO {
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("descripcion"),
-                        rs.getDouble("precio")
+                        rs.getDouble("precio_base")
                 ));
             }
         } catch (SQLException e) {
@@ -93,7 +93,7 @@ public class ServiciosDAO implements IServiciosDAO {
 
     @Override
     public boolean actualizar(Servicio servicio) {
-        String sql = "UPDATE servicios SET nombre = ?, descripcion = ?, precio = ? WHERE id = ?";
+        String sql = "UPDATE servicios SET nombre = ?, descripcion = ?, precio_base = ? WHERE id = ?";
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 

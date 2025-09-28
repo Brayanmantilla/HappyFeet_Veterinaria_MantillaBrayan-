@@ -5,6 +5,7 @@ import happyfeet.view.DuenoView;
 import happyfeet.view.MascotaView;
 import happyfeet.view.InventarioView;  // ✅ NUEVA IMPORT
 import happyfeet.view.FacturacionView;
+import happyfeet.view.ActividadesView;
 
 
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ public class Main {
     private final CitaView citaView = new CitaView(scanner);
     private final InventarioView inventarioView = new InventarioView(scanner);  // ✅ NUEVA VIEW
     private final FacturacionView facturacionView = new FacturacionView(scanner);
+    private final ActividadesView actividadesView = new ActividadesView(scanner);
 
 
     public Main() throws SQLException {
@@ -46,7 +48,7 @@ public class Main {
                 case 2 -> citaView.mostrarMenu();
                 case 3 -> inventarioView.mostrarMenu();  // ✅ NUEVA LLAMADA
                 case 4 -> facturacionView.mostrarMenu();
-                case 5 -> menuActividades();
+                case 5 -> actividadesView.mostrarMenu();
                 case 0 -> System.out.println("👋 Saliendo del sistema...");
                 default -> System.out.println("⚠️ Opción inválida, intente de nuevo.");
             }

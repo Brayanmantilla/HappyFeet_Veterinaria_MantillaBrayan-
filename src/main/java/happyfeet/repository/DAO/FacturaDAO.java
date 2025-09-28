@@ -18,15 +18,23 @@ public class FacturaDAO implements IFacturaDAO {
 
     @Override
     public boolean insertarFactura(Factura factura) {
-        String sql = "INSERT INTO facturas (dueno_id, fecha_emision, total_factura) VALUES (?,?,?)";
+        String sql = "INSERT INTO facturas (dueno_id, fecha_emision, total) VALUES (?,?,?)";
         try (Connection con = Conexion.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, factura.getDueno().getIdDueno());
             ps.setDate(2, Date.valueOf(factura.getFechaEmision()));
             ps.setDouble(3, factura.getTotalFactura());
 
-            return ps.executeUpdate() > 0;
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        factura.setIdFactura(rs.getInt(1));
+                    }
+                }
+                return true;
+            }
 
         } catch (SQLException e) {
             System.out.println("Error al insertar factura: " + e.getMessage());
@@ -104,7 +112,7 @@ public class FacturaDAO implements IFacturaDAO {
                 rs.getInt("id"),
                 dueno,
                 fecha,
-                rs.getDouble("total_factura")
+                rs.getDouble("total")
         );
     }
 }
