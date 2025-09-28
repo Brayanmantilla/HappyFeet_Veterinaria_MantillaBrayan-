@@ -32,6 +32,19 @@ public class MascotaService {
         if (mascota.getIdDueno() == null || mascota.getIdDueno().getIdDueno() <= 0) {
             throw new IllegalArgumentException("Debe especificar un dueño válido");
         }
+
+        // ✅ Validación de peso (opcional, pero si se envía debe ser > 0)
+        if (mascota.getPeso() != null && mascota.getPeso() <= 0) {
+            throw new IllegalArgumentException("El peso debe ser mayor a 0 kg");
+        }
+
+        // ✅ Validación de microchip (opcional, si se envía debe tener longitud mínima)
+        if (mascota.getMicrochip() != null && !mascota.getMicrochip().isBlank()) {
+            if (mascota.getMicrochip().length() < 5) {
+                throw new IllegalArgumentException("El número de microchip es demasiado corto");
+            }
+        }
+
         return mascotaDAO.insertar(mascota);
     }
 
@@ -53,6 +66,17 @@ public class MascotaService {
         if (mascota == null || mascota.getIdMascota() <= 0) {
             throw new IllegalArgumentException("Mascota o ID inválido para actualización");
         }
+
+        // ✅ Validar peso y microchip en actualización
+        if (mascota.getPeso() != null && mascota.getPeso() <= 0) {
+            throw new IllegalArgumentException("El peso debe ser mayor a 0 kg");
+        }
+        if (mascota.getMicrochip() != null && !mascota.getMicrochip().isBlank()) {
+            if (mascota.getMicrochip().length() < 5) {
+                throw new IllegalArgumentException("El número de microchip es demasiado corto");
+            }
+        }
+
         return mascotaDAO.actualizar(mascota);
     }
 

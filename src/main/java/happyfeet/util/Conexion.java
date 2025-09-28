@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class Conexion {
     public static Connection getConexion() {
         Connection conexion = null;
-        var baseDatos = "happyfeetveterinaria";
+        var baseDatos = "happyfeetveterinariaa_";
         var url = "jdbc:mysql://localhost:3306/" + baseDatos;
         var usuario = "root";
         var password = "brayanjavier21";

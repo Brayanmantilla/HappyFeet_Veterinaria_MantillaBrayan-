@@ -33,16 +33,18 @@ public class MascotaDAO implements IMascotaDAO {
     public boolean insertar(Mascota mascota) throws SQLException {
         String sql = """
             INSERT INTO mascotas
-                (nombre, raza_id, fecha_nacimiento, sexo, url_foto, dueno_id)
-            VALUES (?, ?, ?, ?, ?, ?)
+                (nombre, raza_id, fecha_nacimiento, sexo, peso, microchip, url_foto, dueno_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """;
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, mascota.getNombreMascota());
             ps.setInt(2, mascota.getRaza().getIdRaza());
             ps.setDate(3, mascota.getFechaNacimiento() != null ? Date.valueOf(mascota.getFechaNacimiento()) : null);
             ps.setString(4, mascota.getSexo().name());
-            ps.setString(5, mascota.getUrlFoto());
-            ps.setInt(6, mascota.getIdDueno().getIdDueno());
+            ps.setObject(5, mascota.getPeso(), Types.DOUBLE);
+            ps.setString(6, mascota.getMicrochip());
+            ps.setString(7, mascota.getUrlFoto());
+            ps.setInt(8, mascota.getIdDueno().getIdDueno());
 
             int rows = ps.executeUpdate();
             if (rows > 0) {
@@ -97,7 +99,8 @@ public class MascotaDAO implements IMascotaDAO {
     public boolean actualizar(Mascota mascota) throws SQLException {
         String sql = """
             UPDATE mascotas
-               SET nombre=?, raza_id=?, fecha_nacimiento=?, sexo=?, url_foto=?, dueno_id=?
+               SET nombre=?, raza_id=?, fecha_nacimiento=?, sexo=?, 
+                   peso=?, microchip=?, url_foto=?, dueno_id=?
              WHERE id=?
         """;
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -105,9 +108,11 @@ public class MascotaDAO implements IMascotaDAO {
             ps.setInt(2, mascota.getRaza().getIdRaza());
             ps.setDate(3, mascota.getFechaNacimiento() != null ? Date.valueOf(mascota.getFechaNacimiento()) : null);
             ps.setString(4, mascota.getSexo().name());
-            ps.setString(5, mascota.getUrlFoto());
-            ps.setInt(6, mascota.getIdDueno().getIdDueno());
-            ps.setInt(7, mascota.getIdMascota());
+            ps.setObject(5, mascota.getPeso(), Types.DOUBLE);
+            ps.setString(6, mascota.getMicrochip());
+            ps.setString(7, mascota.getUrlFoto());
+            ps.setInt(8, mascota.getIdDueno().getIdDueno());
+            ps.setInt(9, mascota.getIdMascota());
             return ps.executeUpdate() > 0;
         }
     }
@@ -169,6 +174,8 @@ public class MascotaDAO implements IMascotaDAO {
             m.nombre      AS m_nombre,
             m.fecha_nacimiento AS m_fecha_nacimiento,
             m.sexo        AS m_sexo,
+            m.peso        AS m_peso,
+            m.microchip   AS m_microchip,
             m.url_foto    AS m_url_foto,
             r.id          AS r_id,
             r.nombre      AS r_nombre,
@@ -203,7 +210,7 @@ public class MascotaDAO implements IMascotaDAO {
                 especie
         );
 
-        // Dueño (orden exacto del constructor)
+        // Dueño
         Dueno dueno = new Dueno(
                 rs.getInt("d_id"),
                 rs.getString("d_nombre_completo"),
@@ -223,6 +230,8 @@ public class MascotaDAO implements IMascotaDAO {
                 raza,
                 fecha,
                 sexoMascota.valueOf(rs.getString("m_sexo")),
+                rs.getDouble("m_peso"),            // ✅ Nuevo
+                rs.getString("m_microchip"),       // ✅ Nuevo
                 rs.getString("m_url_foto"),
                 dueno
         );

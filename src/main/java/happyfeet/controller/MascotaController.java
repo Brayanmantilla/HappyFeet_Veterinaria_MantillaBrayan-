@@ -40,6 +40,14 @@ import java.util.Scanner;
                 System.out.print("Sexo (Macho/Hembra): ");
                 sexoMascota sexo = sexoMascota.valueOf(scanner.nextLine().trim());
 
+                // 🔹 NUEVOS CAMPOS
+                System.out.print("Peso actual en kg (opcional): ");
+                String pesoStr = scanner.nextLine();
+                double peso = pesoStr.isBlank() ? 0.0 : Double.parseDouble(pesoStr);
+
+                System.out.print("Número de microchip (opcional MC-####-DQ): ");
+                String microchip = scanner.nextLine();
+
                 System.out.print("URL de la foto (opcional): ");
                 String urlFoto = scanner.nextLine();
 
@@ -52,6 +60,8 @@ import java.util.Scanner;
                         new Raza(idRaza),
                         fechaNac,
                         sexo,
+                        peso,
+                        microchip,
                         urlFoto,
                         new Dueno(idDueno)
                 );
@@ -114,6 +124,14 @@ import java.util.Scanner;
                 System.out.print("Nuevo nombre (" + mascota.getNombreMascota() + "): ");
                 String nombre = scanner.nextLine();
                 if (!nombre.isBlank()) mascota.setNombreMascota(nombre);
+
+                System.out.print("Nuevo peso (" + mascota.getPeso() + "): ");
+                String pesoStr = scanner.nextLine();
+                if (!pesoStr.isBlank()) mascota.setPeso(Double.parseDouble(pesoStr));
+
+                System.out.print("Nuevo microchip (" + mascota.getMicrochip() + "): ");
+                String microchip = scanner.nextLine();
+                if (!microchip.isBlank()) mascota.setMicrochip(microchip);
 
                 System.out.print("Nueva URL de foto (" + mascota.getUrlFoto() + "): ");
                 String url = scanner.nextLine();

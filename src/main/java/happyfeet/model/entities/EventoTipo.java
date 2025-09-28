@@ -6,12 +6,16 @@ public class EventoTipo {
     private int idEventoTipo;
     private String nombreEventoTipo;
 
-    public EventoTipo(){
-    }
+    public EventoTipo() {}
 
-    public EventoTipo(int idEventoTipo, String nombreEventoTipo){
+    public EventoTipo(int idEventoTipo, String nombreEventoTipo) {
         this.idEventoTipo = idEventoTipo;
         this.nombreEventoTipo = nombreEventoTipo;
+    }
+
+    // Constructor solo con ID (para referencia rápida)
+    public EventoTipo(int idEventoTipo) {
+        this.idEventoTipo = idEventoTipo;
     }
 
     public int getIdEventoTipo() {
