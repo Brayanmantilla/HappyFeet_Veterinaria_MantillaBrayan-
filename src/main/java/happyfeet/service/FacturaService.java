@@ -27,11 +27,6 @@ public class FacturaService {
             this.facturaDAO = daoTemp;
         }
 
-        /**
-         * Registra una nueva factura.
-         * @param factura Objeto Factura con datos completos
-         * @return true si se insertó correctamente
-         */
         public boolean registrarFactura(Factura factura) {
             if (factura == null || factura.getDueno() == null) return false;
             try {
@@ -42,11 +37,6 @@ public class FacturaService {
             }
         }
 
-        /**
-         * Obtiene una factura por su ID.
-         * @param id identificador de la factura
-         * @return Factura o null si no existe
-         */
         public Factura obtenerFacturaPorId(int id) {
             if (id <= 0) return null;
             try {
@@ -57,12 +47,6 @@ public class FacturaService {
             }
         }
 
-        /**
-         * Lista todas las facturas emitidas entre dos fechas.
-         * @param inicio fecha inicial (inclusive)
-         * @param fin fecha final (inclusive)
-         * @return lista de facturas
-         */
         public List<Factura> listarFacturasPorPeriodo(LocalDate inicio, LocalDate fin) {
             if (inicio == null || fin == null) return Collections.emptyList();
             try {
@@ -73,11 +57,6 @@ public class FacturaService {
             }
         }
 
-        /**
-         * Lista todas las facturas de un dueño específico.
-         * @param duenoId ID del dueño
-         * @return lista de facturas
-         */
         public List<Factura> listarFacturasPorDueno(int duenoId) {
             if (duenoId <= 0) return Collections.emptyList();
             try {
@@ -88,9 +67,6 @@ public class FacturaService {
             }
         }
 
-        /**
-         * Cierra la conexión manualmente cuando ya no se use el servicio.
-         */
         public void cerrarConexion() {
             try {
                 if (connection != null && !connection.isClosed()) {
