@@ -232,8 +232,7 @@ src/
 
 **Brayan Mantilla**  
 *Estudiante de Ingeniería de Sistemas*  
-Universidad [Tu Universidad]
-
+CAMPUSLANDS
 ---
 
 ## 📝 Notas Adicionales
