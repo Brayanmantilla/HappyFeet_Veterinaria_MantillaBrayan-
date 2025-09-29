@@ -230,8 +230,7 @@ src/
 
 ## 👨‍💻 Autor
 
-**Brayan Mantilla**  
-*Estudiante de Ingeniería de Sistemas*  
+**Brayan Mantilla**    
 CAMPUSLANDS
 ---
 
