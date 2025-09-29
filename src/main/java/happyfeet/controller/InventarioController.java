@@ -109,15 +109,15 @@ public class InventarioController {
             producto.setPrecioVenta(precioVenta);
 
             if (inventarioService.registrarProducto(producto)) {
-                System.out.println("✅ Producto registrado exitosamente!");
+                System.out.println("Producto registrado exitosamente!");
             } else {
-                System.out.println("❌ Error al registrar el producto.");
+                System.out.println("Error al registrar el producto.");
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("❌ Error: Formato de número inválido.");
+            System.out.println("Error: Formato de número inválido.");
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar producto: " + e.getMessage());
+            System.out.println("Error al registrar producto: " + e.getMessage());
         }
     }
 
@@ -130,7 +130,7 @@ public class InventarioController {
 
             Inventario producto = inventarioService.obtenerProductoPorId(id);
             if (producto == null) {
-                System.out.println("❌ Producto no encontrado.");
+                System.out.println("Producto no encontrado.");
                 return;
             }
 
@@ -142,21 +142,21 @@ public class InventarioController {
             int nuevoStock = Integer.parseInt(scanner.nextLine().trim());
 
             if (nuevoStock < 0) {
-                System.out.println("❌ El stock no puede ser negativo.");
+                System.out.println("El stock no puede ser negativo.");
                 return;
             }
 
             if (inventarioService.actualizarStock(id, nuevoStock)) {
-                System.out.println("✅ Stock actualizado exitosamente!");
+                System.out.println("Stock actualizado exitosamente!");
                 if (nuevoStock < producto.getStockMinimo()) {
-                    System.out.println("⚠️ ALERTA: El stock está por debajo del mínimo (" + producto.getStockMinimo() + ")");
+                    System.out.println("ALERTA: El stock está por debajo del mínimo (" + producto.getStockMinimo() + ")");
                 }
             } else {
-                System.out.println("❌ Error al actualizar el stock.");
+                System.out.println("Error al actualizar el stock.");
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("❌ Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
@@ -198,7 +198,7 @@ public class InventarioController {
         // Alerta de stock bajo
         List<Inventario> stockBajo = inventarioService.reporteStockBajo();
         if (!stockBajo.isEmpty()) {
-            System.out.println("\n🔴 PRODUCTOS CON STOCK BAJO:");
+            System.out.println("\n PRODUCTOS CON STOCK BAJO:");
             System.out.println("┌────┬──────────────────────┬───────┬────────┐");
             System.out.println("│ ID │ Producto             │ Stock │ Mínimo │");
             System.out.println("├────┼──────────────────────┼───────┼────────┤");
@@ -216,7 +216,7 @@ public class InventarioController {
         // Alerta de productos próximos a vencer
         List<Inventario> proximosAVencer = inventarioService.reporteProximosAVencer();
         if (!proximosAVencer.isEmpty()) {
-            System.out.println("\n🟡 PRODUCTOS PRÓXIMOS A VENCER (30 días):");
+            System.out.println("\n PRODUCTOS PRÓXIMOS A VENCER (30 días):");
             System.out.println("┌────┬──────────────────────┬─────────────┬───────┐");
             System.out.println("│ ID │ Producto             │ Vencimiento │ Stock │");
             System.out.println("├────┼──────────────────────┼─────────────┼───────┤");
@@ -232,7 +232,7 @@ public class InventarioController {
         }
 
         if (stockBajo.isEmpty() && proximosAVencer.isEmpty()) {
-            System.out.println("✅ No hay alertas en este momento.");
+            System.out.println("No hay alertas en este momento.");
         }
     }
 
@@ -244,7 +244,7 @@ public class InventarioController {
             String nombre = scanner.nextLine().trim();
 
             if (nombre.isEmpty()) {
-                System.out.println("❌ El nombre del proveedor es obligatorio.");
+                System.out.println("El nombre del proveedor es obligatorio.");
                 return;
             }
 
@@ -268,13 +268,13 @@ public class InventarioController {
             proveedor.setDireccionProveedor(direccion);
 
             if (proveedorService.registrarProveedor(proveedor)) {
-                System.out.println("✅ Proveedor registrado exitosamente!");
+                System.out.println("Proveedor registrado exitosamente!");
             } else {
-                System.out.println("❌ Error al registrar el proveedor.");
+                System.out.println("Error al registrar el proveedor.");
             }
 
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar proveedor: " + e.getMessage());
+            System.out.println("Error al registrar proveedor: " + e.getMessage());
         }
     }
 

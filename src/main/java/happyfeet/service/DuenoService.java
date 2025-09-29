@@ -36,7 +36,6 @@ public class DuenoService {
 
     // Eliminar dueño
     public boolean eliminarDueno(int id) throws Exception {
-        // ⚠️ Aquí podrías validar que no tenga mascotas registradas antes de eliminar
         return duenoDAO.eliminar(id);
     }
 }

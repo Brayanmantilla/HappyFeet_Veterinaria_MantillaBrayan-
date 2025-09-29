@@ -16,19 +16,15 @@ import java.util.List;
 public class MascotaDAO implements IMascotaDAO {
     private final Connection connection;
 
-    // CONSTRUCTOR 1: Para uso directo
     public MascotaDAO() throws SQLException {
         this.connection = Conexion.getConexion();
     }
 
-    // CONSTRUCTOR 2: Para uso externo
     public MascotaDAO(Connection connection) {
         this.connection = connection;
     }
 
-    // ============================================================
-    // INSERTAR
-    // ============================================================
+
     @Override
     public boolean insertar(Mascota mascota) throws SQLException {
         String sql = """
@@ -59,9 +55,6 @@ public class MascotaDAO implements IMascotaDAO {
         return false;
     }
 
-    // ============================================================
-    // OBTENER POR ID
-    // ============================================================
     @Override
     public Mascota obtenerPorId(int id) throws SQLException {
         String sql = SELECT_BASE + " WHERE m.id = ?";
@@ -76,9 +69,6 @@ public class MascotaDAO implements IMascotaDAO {
         return null;
     }
 
-    // ============================================================
-    // LISTAR TODOS
-    // ============================================================
     @Override
     public List<Mascota> listarTodos() throws SQLException {
         List<Mascota> lista = new ArrayList<>();
@@ -92,9 +82,6 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
-    // ============================================================
-    // ACTUALIZAR
-    // ============================================================
     @Override
     public boolean actualizar(Mascota mascota) throws SQLException {
         String sql = """
@@ -117,9 +104,6 @@ public class MascotaDAO implements IMascotaDAO {
         }
     }
 
-    // ============================================================
-    // ELIMINAR
-    // ============================================================
     @Override
     public boolean eliminar(int id) throws SQLException {
         String sql = "DELETE FROM mascotas WHERE id = ?";
@@ -129,9 +113,6 @@ public class MascotaDAO implements IMascotaDAO {
         }
     }
 
-    // ============================================================
-    // BUSCAR POR NOMBRE
-    // ============================================================
     @Override
     public List<Mascota> buscarPorNombre(String nombre) throws SQLException {
         List<Mascota> lista = new ArrayList<>();
@@ -147,9 +128,6 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
-    // ============================================================
-    // LISTAR POR DUEÑO
-    // ============================================================
     @Override
     public List<Mascota> listarPorDueno(int idDueno) throws SQLException {
         List<Mascota> lista = new ArrayList<>();
@@ -165,9 +143,6 @@ public class MascotaDAO implements IMascotaDAO {
         return lista;
     }
 
-    // ============================================================
-    // CONSULTA BASE
-    // ============================================================
     private static final String SELECT_BASE = """
         SELECT 
             m.id          AS m_id,
@@ -193,9 +168,6 @@ public class MascotaDAO implements IMascotaDAO {
         JOIN duenos   d ON m.dueno_id = d.id
     """;
 
-    // ============================================================
-    // MAPEO ResultSet -> Mascota
-    // ============================================================
     private Mascota mapResultSet(ResultSet rs) throws SQLException {
         // Especie
         Especie especie = new Especie(
@@ -230,8 +202,8 @@ public class MascotaDAO implements IMascotaDAO {
                 raza,
                 fecha,
                 sexoMascota.valueOf(rs.getString("m_sexo")),
-                rs.getDouble("m_peso"),            // ✅ Nuevo
-                rs.getString("m_microchip"),       // ✅ Nuevo
+                rs.getDouble("m_peso"),
+                rs.getString("m_microchip"),
                 rs.getString("m_url_foto"),
                 dueno
         );

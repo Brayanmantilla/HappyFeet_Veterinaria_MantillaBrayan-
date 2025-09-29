@@ -14,7 +14,6 @@ public class CitaServicioDAO implements ICitaServicio {
     private final CitasDAO citaDAO;
     private final ServiciosDAO servicioDAO;
 
-    // Constructor recibe la conexión
     public CitaServicioDAO(Connection connection) {
         this.citaDAO = new CitasDAO(connection);
         this.servicioDAO = new ServiciosDAO(connection);

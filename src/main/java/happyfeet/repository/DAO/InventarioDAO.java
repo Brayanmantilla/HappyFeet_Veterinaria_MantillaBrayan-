@@ -38,7 +38,7 @@ public class InventarioDAO implements IInventarioDAO {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al insertar inventario: " + e.getMessage());
+            System.out.println("Error al insertar inventario: " + e.getMessage());
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class InventarioDAO implements IInventarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al obtener inventario: " + e.getMessage());
+            System.out.println("Error al obtener inventario: " + e.getMessage());
         }
         return inv;
     }
@@ -77,7 +77,7 @@ public class InventarioDAO implements IInventarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al listar inventario: " + e.getMessage());
+            System.out.println("Error al listar inventario: " + e.getMessage());
         }
         return lista;
     }
@@ -108,7 +108,7 @@ public class InventarioDAO implements IInventarioDAO {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al actualizar inventario: " + e.getMessage());
+            System.out.println("Error al actualizar inventario: " + e.getMessage());
         }
         return false;
     }
@@ -124,7 +124,7 @@ public class InventarioDAO implements IInventarioDAO {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al actualizar stock: " + e.getMessage());
+            System.out.println("Error al actualizar stock: " + e.getMessage());
         }
         return false;
     }
@@ -139,7 +139,7 @@ public class InventarioDAO implements IInventarioDAO {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al eliminar inventario: " + e.getMessage());
+            System.out.println("Error al eliminar inventario: " + e.getMessage());
         }
         return false;
     }
@@ -158,7 +158,7 @@ public class InventarioDAO implements IInventarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al generar reporte de stock bajo: " + e.getMessage());
+            System.out.println("Error al generar reporte de stock bajo: " + e.getMessage());
         }
         return lista;
     }
@@ -179,7 +179,7 @@ public class InventarioDAO implements IInventarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al generar reporte de próximos a vencer: " + e.getMessage());
+            System.out.println("Error al generar reporte de próximos a vencer: " + e.getMessage());
         }
         return lista;
     }

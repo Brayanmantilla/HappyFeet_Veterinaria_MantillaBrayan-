@@ -84,13 +84,87 @@ import java.util.Scanner;
                 if (lista.isEmpty()) {
                     System.out.println("No hay mascotas registradas.");
                 } else {
+                    // Encabezado de la tabla
+                    System.out.println("┌────┬──────────────────────┬─────────────────┬─────────┬──────────────┬─────────────────────┐");
+                    System.out.println("│ ID │ Nombre               │ Raza            │ Sexo    │ Peso (kg)    │ Dueño               │");
+                    System.out.println("├────┼──────────────────────┼─────────────────┼─────────┼──────────────┼─────────────────────┤");
+
                     for (Mascota m : lista) {
-                        System.out.println(m);
+                        String peso = (m.getPeso() != null && m.getPeso() > 0) ?
+                                String.format("%.1f", m.getPeso()) : "N/A";
+
+                        String microchip = (m.getMicrochip() != null && !m.getMicrochip().isEmpty()) ?
+                                " 🔹" : "";
+
+                        System.out.printf("│%-4d│%-22s│%-17s│%-9s│%-14s│%-21s│%s%n",
+                                m.getIdMascota(),
+                                truncar(m.getNombreMascota(), 20),
+                                truncar(m.getRaza().getNombreRaza(), 15),
+                                m.getSexo().getNombre(),
+                                peso,
+                                truncar(m.getIdDueno().getNombreDueno(), 19),
+                                microchip
+                        );
                     }
+
+                    System.out.println("└────┴──────────────────────┴─────────────────┴─────────┴──────────────┴─────────────────────┘");
+                    System.out.println("Total de mascotas: " + lista.size());
+                    System.out.println("🔹 = Tiene microchip registrado");
                 }
             } catch (SQLException e) {
                 System.out.println("⚠️ Error al listar mascotas: " + e.getMessage());
             }
+        }
+
+        /** Método auxiliar para mostrar información detallada de una mascota */
+        public void mostrarDetalleMascota() {
+            try {
+                System.out.print("Ingrese el ID de la mascota para ver detalles: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                Mascota mascota = mascotaService.obtenerMascota(id);
+
+                if (mascota != null) {
+                    System.out.println("\n=== FICHA DETALLADA DE MASCOTA ===");
+                    System.out.println("ID: " + mascota.getIdMascota());
+                    System.out.println("Nombre: " + mascota.getNombreMascota());
+                    System.out.println("Especie: " + mascota.getRaza().getEspecie().getNombreEspecie());
+                    System.out.println("Raza: " + mascota.getRaza().getNombreRaza());
+                    System.out.println("Sexo: " + mascota.getSexo().getNombre());
+
+                    if (mascota.getFechaNacimiento() != null) {
+                        System.out.println("Fecha de nacimiento: " + mascota.getFechaNacimiento());
+                    }
+
+                    if (mascota.getPeso() != null && mascota.getPeso() > 0) {
+                        System.out.println("Peso: " + mascota.getPeso() + " kg");
+                    }
+
+                    if (mascota.getMicrochip() != null && !mascota.getMicrochip().isEmpty()) {
+                        System.out.println("Microchip: " + mascota.getMicrochip());
+                    }
+
+                    if (mascota.getUrlFoto() != null && !mascota.getUrlFoto().isEmpty()) {
+                        System.out.println("Foto: " + mascota.getUrlFoto());
+                    }
+
+                    System.out.println("\n--- INFORMACIÓN DEL DUEÑO ---");
+                    System.out.println("Nombre: " + mascota.getIdDueno().getNombreDueno());
+                    System.out.println("Documento: " + mascota.getIdDueno().getDoumentoDueno());
+                    System.out.println("Teléfono: " + mascota.getIdDueno().getTelefonoDueno());
+                    System.out.println("Email: " + mascota.getIdDueno().getEmailDueno());
+
+                } else {
+                    System.out.println("⚠️ No se encontró ninguna mascota con ese ID.");
+                }
+            } catch (Exception e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
+            }
+        }
+
+        /** Método auxiliar para truncar texto */
+        private String truncar(String texto, int maxLength) {
+            if (texto == null) return "";
+            return texto.length() > maxLength ? texto.substring(0, maxLength - 3) + "..." : texto;
         }
 
         /** Buscar mascota por ID */

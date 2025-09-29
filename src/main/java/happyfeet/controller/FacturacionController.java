@@ -54,11 +54,11 @@ public class FacturacionController {
 
             // Registrar factura temporal
             if (!facturaService.registrarFactura(factura)) {
-                System.out.println("❌ Error al crear la factura.");
+                System.out.println("Error al crear la factura.");
                 return;
             }
 
-            System.out.println("✅ Factura creada. Agregue los items:");
+            System.out.println("Factura creada. Agregue los items:");
 
             double totalFactura = 0.0;
             boolean continuarAgregando = true;
@@ -87,7 +87,7 @@ public class FacturacionController {
             mostrarFactura(factura, totalFactura);
 
         } catch (Exception e) {
-            System.out.println("❌ Error al generar factura: " + e.getMessage());
+            System.out.println("Error al generar factura: " + e.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class FacturacionController {
 
             Servicio servicio = servicioService.obtenerServicioPorId(idServicio);
             if (servicio == null) {
-                System.out.println("❌ Servicio no encontrado.");
+                System.out.println("Servicio no encontrado.");
                 return 0.0;
             }
 
@@ -127,15 +127,15 @@ public class FacturacionController {
             item.setSubtotal(subtotal);
 
             if (itemsFacturaService.agregarItemFactura(item)) {
-                System.out.println("✅ Servicio agregado a la factura.");
+                System.out.println("Servicio agregado a la factura.");
                 return subtotal;
             } else {
-                System.out.println("❌ Error al agregar servicio.");
+                System.out.println("Error al agregar servicio.");
                 return 0.0;
             }
 
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             return 0.0;
         }
     }
@@ -159,7 +159,7 @@ public class FacturacionController {
 
             Inventario producto = inventarioService.obtenerProductoPorId(idProducto);
             if (producto == null) {
-                System.out.println("❌ Producto no encontrado.");
+                System.out.println("Producto no encontrado.");
                 return 0.0;
             }
 
@@ -167,7 +167,7 @@ public class FacturacionController {
             int cantidad = Integer.parseInt(scanner.nextLine().trim());
 
             if (cantidad > producto.getCantidadStock()) {
-                System.out.println("❌ Stock insuficiente. Disponible: " + producto.getCantidadStock());
+                System.out.println("Stock insuficiente. Disponible: " + producto.getCantidadStock());
                 return 0.0;
             }
 
@@ -186,15 +186,15 @@ public class FacturacionController {
                 int nuevoStock = producto.getCantidadStock() - cantidad;
                 inventarioService.actualizarStock(idProducto, nuevoStock);
 
-                System.out.println("✅ Producto agregado a la factura.");
+                System.out.println("Producto agregado a la factura.");
                 return subtotal;
             } else {
-                System.out.println("❌ Error al agregar producto.");
+                System.out.println("Error al agregar producto.");
                 return 0.0;
             }
 
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             return 0.0;
         }
     }
@@ -297,7 +297,7 @@ public class FacturacionController {
         List<Inventario> proximosVencer = inventarioService.reporteProximosAVencer();
         List<Inventario> todosProductos = inventarioService.listarInventario();
 
-        System.out.println("📊 RESUMEN GENERAL:");
+        System.out.println("RESUMEN GENERAL:");
         System.out.println("• Total productos: " + todosProductos.size());
         System.out.println("• Productos con stock bajo: " + stockBajo.size());
         System.out.println("• Productos próximos a vencer: " + proximosVencer.size());
@@ -308,7 +308,7 @@ public class FacturacionController {
         System.out.printf("• Valor total del inventario: $%.2f%n", valorTotalInventario);
 
         if (!stockBajo.isEmpty()) {
-            System.out.println("\n🔴 PRODUCTOS CON STOCK BAJO:");
+            System.out.println("\nPRODUCTOS CON STOCK BAJO:");
             stockBajo.forEach(p ->
                     System.out.println("• " + p.getNombreProducto() +
                             " (Stock: " + p.getCantidadStock() +
@@ -316,7 +316,7 @@ public class FacturacionController {
         }
 
         if (!proximosVencer.isEmpty()) {
-            System.out.println("\n🟡 PRODUCTOS PRÓXIMOS A VENCER:");
+            System.out.println("\nPRODUCTOS PRÓXIMOS A VENCER:");
             proximosVencer.forEach(p ->
                     System.out.println("• " + p.getNombreProducto() +
                             " (Vence: " + p.getFechaVencimiento() + ")"));
@@ -347,9 +347,9 @@ public class FacturacionController {
             System.out.printf("Promedio por factura: $%.2f%n", promedio);
 
         } catch (DateTimeParseException e) {
-            System.out.println("❌ Formato de fecha inválido.");
+            System.out.println("Formato de fecha inválido.");
         } catch (Exception e) {
-            System.out.println("❌ Error al generar reporte: " + e.getMessage());
+            System.out.println("Error al generar reporte: " + e.getMessage());
         }
     }
 

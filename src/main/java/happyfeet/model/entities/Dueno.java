@@ -3,14 +3,13 @@ package happyfeet.model.entities;
 public class Dueno {
     private int idDueno;
     private String nombreDueno;
-    private String doumentoDueno;   // 🔹 Se mantiene el nombre original con el error
+    private String doumentoDueno;
     private String direccionDueno;
     private String telefonoDueno;
     private String emailDueno;
 
     public Dueno(){}
 
-    // ✅ Constructor completo con orden lógico
     public Dueno(int idDueno, String nombreDueno, String doumentoDueno,
                  String direccionDueno, String telefonoDueno, String emailDueno) {
         this.idDueno = idDueno;
@@ -21,7 +20,6 @@ public class Dueno {
         this.emailDueno = emailDueno;
     }
 
-    // ✅ Constructor usado en el DAO para ID + Nombre
     public Dueno(int dId, String dNombreCompleto) {
         this.idDueno = dId;
         this.nombreDueno = dNombreCompleto;

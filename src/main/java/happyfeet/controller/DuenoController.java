@@ -33,7 +33,7 @@ public class DuenoController {
             System.out.print("Email: ");
             String email = scanner.nextLine();
 
-            // ⚠️ Orden correcto según el constructor
+            // Orden correcto según el constructor
             Dueno dueno = new Dueno(
                     0,
                     telefono,
@@ -44,12 +44,12 @@ public class DuenoController {
             );
 
             if (duenoService.registrarDueno(dueno)) {
-                System.out.println("✅ Dueño registrado correctamente.");
+                System.out.println("Dueño registrado correctamente.");
             } else {
-                System.out.println("❌ Error al registrar dueño.");
+                System.out.println("Error al registrar dueño.");
             }
         } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class DuenoController {
                 }
             }
         } catch (Exception e) {
-            System.out.println("⚠️ Error al listar dueños: " + e.getMessage());
+            System.out.println("Error al listar dueños: " + e.getMessage());
         }
     }
 
@@ -85,11 +85,11 @@ public class DuenoController {
             if (dueno != null) {
                 mostrarInfoDueno(dueno);
             } else {
-                System.out.println("⚠️ No se encontró ningún dueño con ese ID.");
+                System.out.println("No se encontró ningún dueño con ese ID.");
             }
             return dueno;
         } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class DuenoController {
             Dueno dueno = duenoService.buscarPorId(id);
 
             if (dueno == null) {
-                System.out.println("⚠️ No existe un dueño con ese ID.");
+                System.out.println("No existe un dueño con ese ID.");
                 return;
             }
 
@@ -131,13 +131,13 @@ public class DuenoController {
             if (!email.isBlank()) dueno.setEmailDueno(email);
 
             if (duenoService.actualizarDueno(dueno)) {
-                System.out.println("✅ Datos actualizados correctamente.");
+                System.out.println("Datos actualizados correctamente.");
             } else {
-                System.out.println("❌ No se pudo actualizar el registro.");
+                System.out.println("No se pudo actualizar el registro.");
             }
 
         } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -155,13 +155,13 @@ public class DuenoController {
             }
 
             if (duenoService.eliminarDueno(id)) {
-                System.out.println("✅ Dueño eliminado correctamente.");
+                System.out.println("Dueño eliminado correctamente.");
             } else {
-                System.out.println("❌ No se pudo eliminar (verifique si tiene mascotas registradas).");
+                System.out.println("No se pudo eliminar (verifique si tiene mascotas registradas).");
             }
 
         } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

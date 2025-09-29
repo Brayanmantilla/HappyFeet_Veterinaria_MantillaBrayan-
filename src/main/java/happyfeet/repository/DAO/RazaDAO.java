@@ -50,7 +50,7 @@ public class RazaDAO implements IRazaDAO {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println("❌ Error al listar razas por especie: " + e.getMessage());
+            System.out.println("Error al listar razas por especie: " + e.getMessage());
         }
         return razas;
     }

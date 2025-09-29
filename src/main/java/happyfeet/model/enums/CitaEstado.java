@@ -24,7 +24,6 @@ public enum CitaEstado {
         return nombre;
     }
 
-    // Método estático para obtener enum desde ID
     public static CitaEstado fromId(int id) {
         for (CitaEstado estado : values()) {
             if (estado.getId() == id) {

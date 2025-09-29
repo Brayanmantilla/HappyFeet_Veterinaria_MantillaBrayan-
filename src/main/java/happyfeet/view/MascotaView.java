@@ -43,4 +43,9 @@ public class MascotaView {
         System.out.println("\n--- Eliminar Mascota ---");
         controller.eliminarMascota();
     }
+
+    public void mostrarDetalleMascota() {
+        System.out.println("\n--- Detalle Completo de Mascota ---");
+        controller.mostrarDetalleMascota();
+    }
 }

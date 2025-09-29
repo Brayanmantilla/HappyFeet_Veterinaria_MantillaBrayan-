@@ -16,10 +16,6 @@ public class ProductoTipoService {
         this.productoTipoDAO = new ProductoTipoDAO(connection);
     }
 
-    /**
-     * Lista todos los tipos de producto disponibles
-     * @return Lista de ProductoTipo
-     */
     public List<ProductoTipo> listarTodos() {
         try {
             return productoTipoDAO.listarTodos();

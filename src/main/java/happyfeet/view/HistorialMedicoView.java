@@ -33,15 +33,15 @@ public class HistorialMedicoView {
             switch (opcion) {
                 case 1 -> controller.registrarEvento();
                 case 2 -> controller.listarEventosPorMascota();
-                case 0 -> System.out.println("🔙 Volviendo al menú principal...");
-                default -> System.out.println("⚠️ Opción no válida.");
+                case 0 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida.");
             }
         } while (opcion != 0);
     }
 
     private int leerEntero() {
         while (!scanner.hasNextInt()) {
-            System.out.print("⚠️ Ingrese un número válido: ");
+            System.out.print("Ingrese un número válido: ");
             scanner.next();
         }
         int valor = scanner.nextInt();

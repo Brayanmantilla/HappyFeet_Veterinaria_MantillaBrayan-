@@ -88,10 +88,4 @@ public class EspecieDAO implements IEspecieDAO {
         }
         return false;
     }
-
-//    public static void main(String[] args) {
-//        IEspecieDAO especieDAO = new EspecieDAO();
-//        var especies = especieDAO.listarTodas();
-//        especies.forEach(System.out::println);
-//    }
 }

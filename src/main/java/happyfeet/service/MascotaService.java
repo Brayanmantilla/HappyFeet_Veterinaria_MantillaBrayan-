@@ -33,12 +33,10 @@ public class MascotaService {
             throw new IllegalArgumentException("Debe especificar un dueño válido");
         }
 
-        // ✅ Validación de peso (opcional, pero si se envía debe ser > 0)
         if (mascota.getPeso() != null && mascota.getPeso() <= 0) {
             throw new IllegalArgumentException("El peso debe ser mayor a 0 kg");
         }
 
-        // ✅ Validación de microchip (opcional, si se envía debe tener longitud mínima)
         if (mascota.getMicrochip() != null && !mascota.getMicrochip().isBlank()) {
             if (mascota.getMicrochip().length() < 5) {
                 throw new IllegalArgumentException("El número de microchip es demasiado corto");
@@ -48,7 +46,6 @@ public class MascotaService {
         return mascotaDAO.insertar(mascota);
     }
 
-    /** Obtener mascota por ID */
     public Mascota obtenerMascota(int id) throws SQLException {
         if (id <= 0) {
             throw new IllegalArgumentException("ID inválido");
@@ -56,18 +53,15 @@ public class MascotaService {
         return mascotaDAO.obtenerPorId(id);
     }
 
-    /** Listar todas las mascotas */
     public List<Mascota> listarMascotas() throws SQLException {
         return mascotaDAO.listarTodos();
     }
 
-    /** Actualizar datos de una mascota */
     public boolean actualizarMascota(Mascota mascota) throws SQLException {
         if (mascota == null || mascota.getIdMascota() <= 0) {
             throw new IllegalArgumentException("Mascota o ID inválido para actualización");
         }
 
-        // ✅ Validar peso y microchip en actualización
         if (mascota.getPeso() != null && mascota.getPeso() <= 0) {
             throw new IllegalArgumentException("El peso debe ser mayor a 0 kg");
         }
@@ -80,7 +74,6 @@ public class MascotaService {
         return mascotaDAO.actualizar(mascota);
     }
 
-    /** Eliminar mascota por ID */
     public boolean eliminarMascota(int id) throws SQLException {
         if (id <= 0) {
             throw new IllegalArgumentException("ID inválido");
@@ -88,7 +81,6 @@ public class MascotaService {
         return mascotaDAO.eliminar(id);
     }
 
-    /** Buscar mascotas por nombre */
     public List<Mascota> buscarPorNombre(String nombre) throws SQLException {
         if (nombre == null || nombre.isBlank()) {
             throw new IllegalArgumentException("El nombre no puede estar vacío");
@@ -96,7 +88,6 @@ public class MascotaService {
         return mascotaDAO.buscarPorNombre(nombre);
     }
 
-    /** Listar mascotas de un dueño */
     public List<Mascota> listarPorDueno(int idDueno) throws SQLException {
         if (idDueno <= 0) {
             throw new IllegalArgumentException("ID de dueño inválido");

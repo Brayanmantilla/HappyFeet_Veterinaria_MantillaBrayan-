@@ -33,8 +33,8 @@ public class CitaView {
                 case 2 -> controller.listarCitas();
                 case 3 -> actualizarEstado();
                 case 4 -> controller.eliminarCita();
-                case 0 -> System.out.println("🔙 Volviendo al menú principal...");
-                default -> System.out.println("⚠️ Opción no válida.");
+                case 0 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida.");
             }
         } while (opcion != 0);
     }
@@ -54,13 +54,13 @@ public class CitaView {
         if (nuevoEstado != null) {
             controller.actualizarEstadoCita(idCita, nuevoEstado);
         } else {
-            System.out.println("⚠️ Estado inválido.");
+            System.out.println("Estado inválido.");
         }
     }
 
     private int leerEntero() {
         while (!scanner.hasNextInt()) {
-            System.out.print("⚠️ Ingrese un número válido: ");
+            System.out.print("Ingrese un número válido: ");
             scanner.next();
         }
         int valor = scanner.nextInt();

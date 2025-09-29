@@ -88,7 +88,6 @@ public class ReporteService {
         return desempeño;
     }
 
-    // Reporte de facturación por período
     public Map<String, Object> obtenerReporteFacturacion(LocalDate inicio, LocalDate fin) {
         Map<String, Object> reporte = new HashMap<>();
 

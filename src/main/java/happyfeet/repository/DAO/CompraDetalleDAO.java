@@ -34,7 +34,6 @@ public class CompraDetalleDAO implements ICompraDetalleDAO {
             ps.setDouble(5, detalle.getSubtotal());
             ps.executeUpdate();
 
-            // ✅ Obtener el ID autogenerado y asignarlo al objeto
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     detalle.setIdCompraDetalle(rs.getInt(1));

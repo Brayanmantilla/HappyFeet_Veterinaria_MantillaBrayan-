@@ -35,18 +35,18 @@ public class CitaController {
         try {
             mascota = mascotaDAO.obtenerPorId(idMascota);
         } catch (Exception e) {
-            System.out.println("❌ Error al consultar la mascota: " + e.getMessage());
+            System.out.println("Error al consultar la mascota: " + e.getMessage());
             return;
         }
         if (mascota == null) {
-            System.out.println("❌ La mascota con ID " + idMascota + " no existe.");
+            System.out.println("La mascota con ID " + idMascota + " no existe.");
             return;
         }
 
         int idEmpleado = pedirEntero("Ingrese el ID del empleado (veterinario): ");
         Empleado empleado = empleadoDAO.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            System.out.println("❌ El empleado con ID " + idEmpleado + " no existe.");
+            System.out.println("El empleado con ID " + idEmpleado + " no existe.");
             return;
         }
 
@@ -57,7 +57,7 @@ public class CitaController {
         int idEstado = pedirEntero("Ingrese el ID del estado: ");
         CitaEstado estado = CitaEstado.fromId(idEstado);
         if (estado == null) {
-            System.out.println("❌ Estado inválido.");
+            System.out.println("Estado inválido.");
             return;
         }
 
@@ -67,7 +67,7 @@ public class CitaController {
         try {
             fechaCita = LocalDate.parse(fecha);
         } catch (Exception e) {
-            System.out.println("❌ Fecha inválida.");
+            System.out.println("Fecha inválida.");
             return;
         }
 
@@ -82,10 +82,10 @@ public class CitaController {
         try {
             exito = citaService.registrarCita(nueva);
         } catch (Exception e) {
-            System.out.println("❌ Error al registrar la cita: " + e.getMessage());
+            System.out.println("Error al registrar la cita: " + e.getMessage());
             return;
         }
-        System.out.println(exito ? "✅ Cita registrada correctamente." : "❌ No se pudo registrar la cita.");
+        System.out.println(exito ? "Cita registrada correctamente." : "No se pudo registrar la cita.");
     }
 
     public void listarCitas() {
@@ -101,19 +101,19 @@ public class CitaController {
 
     public void actualizarEstadoCita(int idCita, CitaEstado nuevoEstado) {
         boolean exito = citaService.actualizarEstado(idCita, nuevoEstado);
-        System.out.println(exito ? "✅ Estado actualizado correctamente." : "❌ No se pudo actualizar.");
+        System.out.println(exito ? "Estado actualizado correctamente." : "No se pudo actualizar.");
     }
 
     public void eliminarCita() {
         int id = pedirEntero("Ingrese el ID de la cita a eliminar: ");
         boolean exito = citaService.eliminarCita(id);
-        System.out.println(exito ? "✅ Cita eliminada correctamente." : "❌ No se pudo eliminar.");
+        System.out.println(exito ? "Cita eliminada correctamente." : "No se pudo eliminar.");
     }
 
     private int pedirEntero(String mensaje) {
         System.out.print(mensaje);
         while (!scanner.hasNextInt()) {
-            System.out.print("⚠️ Ingrese un número válido: ");
+            System.out.print("Ingrese un número válido: ");
             scanner.next();
         }
         int valor = scanner.nextInt();

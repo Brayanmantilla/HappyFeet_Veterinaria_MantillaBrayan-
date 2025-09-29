@@ -29,7 +29,7 @@ public class HistorialMedicoController {
         int idMascota = pedirEntero("Ingrese el ID de la mascota: ");
         Mascota mascota = obtenerMascotaPorId(idMascota);
         if (mascota == null) {
-            System.out.println("⚠️ Mascota no encontrada.");
+            System.out.println("Mascota no encontrada.");
             return;
         }
 
@@ -42,7 +42,7 @@ public class HistorialMedicoController {
         int idEvento = pedirEntero("Ingrese el ID del evento: ");
         EventoTipo eventoTipo = obtenerEventoTipoPorId(idEvento);
         if (eventoTipo == null) {
-            System.out.println("⚠️ Tipo de evento no válido.");
+            System.out.println("Tipo de evento no válido.");
             return;
         }
 
@@ -62,9 +62,9 @@ public class HistorialMedicoController {
         );
 
         if (historialService.registrarEvento(historial)) {
-            System.out.println("✅ Evento registrado correctamente.");
+            System.out.println("Evento registrado correctamente.");
         } else {
-            System.out.println("❌ Error al registrar el evento.");
+            System.out.println("Error al registrar el evento.");
         }
     }
 
@@ -73,7 +73,7 @@ public class HistorialMedicoController {
         int idMascota = pedirEntero("Ingrese el ID de la mascota: ");
         List<HistorialMedico> lista = historialService.listarEventosPorMascota(idMascota);
         if (lista.isEmpty()) {
-            System.out.println("⚠️ No se encontraron eventos para esta mascota.");
+            System.out.println("No se encontraron eventos para esta mascota.");
         } else {
             lista.forEach(e -> System.out.println(
                     "ID: " + e.getIdHistorialMedico() +
@@ -101,7 +101,7 @@ public class HistorialMedicoController {
     private int pedirEntero(String mensaje) {
         System.out.print(mensaje);
         while (!scanner.hasNextInt()) {
-            System.out.print("⚠️ Ingrese un número válido: ");
+            System.out.print("Ingrese un número válido: ");
             scanner.next();
         }
         int valor = scanner.nextInt();

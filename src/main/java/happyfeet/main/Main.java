@@ -3,7 +3,7 @@ package happyfeet.main;
 import happyfeet.view.CitaView;
 import happyfeet.view.DuenoView;
 import happyfeet.view.MascotaView;
-import happyfeet.view.InventarioView;  // ✅ NUEVA IMPORT
+import happyfeet.view.InventarioView;
 import happyfeet.view.FacturacionView;
 import happyfeet.view.ActividadesView;
 
@@ -17,7 +17,7 @@ public class Main {
     private final DuenoView duenoView = new DuenoView(scanner);
     private final MascotaView mascotaView = new MascotaView(scanner);
     private final CitaView citaView = new CitaView(scanner);
-    private final InventarioView inventarioView = new InventarioView(scanner);  // ✅ NUEVA VIEW
+    private final InventarioView inventarioView = new InventarioView(scanner);
     private final FacturacionView facturacionView = new FacturacionView(scanner);
     private final ActividadesView actividadesView = new ActividadesView(scanner);
 
@@ -35,7 +35,7 @@ public class Main {
             System.out.println("=========================================");
             System.out.println("[1] Gestión de Pacientes (Mascotas y Dueños)");
             System.out.println("[2] Servicios Médicos y Citas");
-            System.out.println("[3] Inventario y Farmacia");  // ✅ NUEVA OPCIÓN
+            System.out.println("[3] Inventario y Farmacia");
             System.out.println("[4] Facturación y Reportes");
             System.out.println("[5] Actividades Especiales");
             System.out.println("[0] Salir del Sistema");
@@ -46,11 +46,11 @@ public class Main {
             switch (opcion) {
                 case 1 -> menuGestionPacientes();
                 case 2 -> citaView.mostrarMenu();
-                case 3 -> inventarioView.mostrarMenu();  // ✅ NUEVA LLAMADA
+                case 3 -> inventarioView.mostrarMenu();
                 case 4 -> facturacionView.mostrarMenu();
                 case 5 -> actividadesView.mostrarMenu();
-                case 0 -> System.out.println("👋 Saliendo del sistema...");
-                default -> System.out.println("⚠️ Opción inválida, intente de nuevo.");
+                case 0 -> System.out.println("Saliendo del sistema...");
+                default -> System.out.println("Opción inválida, intente de nuevo.");
             }
         } while (opcion != 0);
     }
@@ -65,6 +65,7 @@ public class Main {
             System.out.println("[4] Listar mascotas");
             System.out.println("[5] Consultar/editar ficha de mascota");
             System.out.println("[6] Transferir propiedad de mascota");
+            System.out.println("[7] Ver detalle completo de mascota");
             System.out.println("[0] Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
             opcion = leerEntero();
@@ -76,57 +77,9 @@ public class Main {
                 case 4 -> mascotaView.listarMascotas();
                 case 5 -> mascotaView.editarMascota();
                 case 6 -> mascotaView.transferirPropiedad();
-                case 0 -> System.out.println("🔙 Volviendo al Menú Principal...");
-                default -> System.out.println("⚠️ Opción inválida, intente de nuevo.");
-            }
-        } while (opcion != 0);
-    }
-
-    // ✅ NUEVOS MENÚS TEMPORALES (HASTA QUE IMPLEMENTES LOS MÓDULOS)
-    private void menuFacturacion() {
-        int opcion;
-        do {
-            System.out.println("\n----- FACTURACIÓN Y REPORTES -----");
-            System.out.println("[1] Generar factura por servicio o venta");
-            System.out.println("[2] Reporte: Servicios más solicitados");
-            System.out.println("[3] Reporte: Desempeño del equipo veterinario");
-            System.out.println("[4] Reporte: Estado de inventario");
-            System.out.println("[5] Reporte: Facturación por período");
-            System.out.println("[0] Volver al Menú Principal");
-            System.out.print("Seleccione una opción: ");
-            opcion = leerEntero();
-
-            switch (opcion) {
-                case 1 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 2 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 3 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 4 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 5 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 0 -> System.out.println("🔙 Volviendo al Menú Principal...");
-                default -> System.out.println("⚠️ Opción inválida, intente de nuevo.");
-            }
-        } while (opcion != 0);
-    }
-
-    private void menuActividades() {
-        int opcion;
-        do {
-            System.out.println("\n----- ACTIVIDADES ESPECIALES -----");
-            System.out.println("[1] Registrar mascota para adopción");
-            System.out.println("[2] Generar contrato de adopción");
-            System.out.println("[3] Registrar jornada de vacunación");
-            System.out.println("[4] Gestionar Club de Mascotas Frecuentes");
-            System.out.println("[0] Volver al Menú Principal");
-            System.out.print("Seleccione una opción: ");
-            opcion = leerEntero();
-
-            switch (opcion) {
-                case 1 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 2 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 3 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 4 -> System.out.println("🚧 Módulo en desarrollo...");
-                case 0 -> System.out.println("🔙 Volviendo al Menú Principal...");
-                default -> System.out.println("⚠️ Opción inválida, intente de nuevo.");
+                case 7 -> mascotaView.mostrarDetalleMascota();
+                case 0 -> System.out.println("Volviendo al Menú Principal...");
+                default -> System.out.println("Opción inválida, intente de nuevo.");
             }
         } while (opcion != 0);
     }

@@ -17,7 +17,6 @@ public class Raza {
         this.especie = especie;
     }
 
-    // ✅ ESTE ES EL QUE ESTAMOS USANDO EN EL DAO
     public Raza(int rId, String rNombre) {
         this.idRaza = rId;
         this.nombreRaza = rNombre;

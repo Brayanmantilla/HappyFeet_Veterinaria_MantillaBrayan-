@@ -9,12 +9,10 @@ import java.util.List;
 public class EmpleadoService {
     private final IEmpleadosDAO empleadosDAO;
 
-    // Puedes inyectar la implementación o instanciarla directamente
     public EmpleadoService() {
         this.empleadosDAO = new EmpleadosDAO();
     }
 
-    // Constructor alternativo para inyección manual si se necesita
     public EmpleadoService(IEmpleadosDAO empleadosDAO) {
         this.empleadosDAO = empleadosDAO;
     }

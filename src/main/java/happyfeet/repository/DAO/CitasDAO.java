@@ -93,14 +93,13 @@ public class CitasDAO implements ICitasDAO {
 
     @Override
     public boolean eliminar(int id) throws Exception {
-        // 1️⃣ Eliminar primero los servicios asociados a la cita
         String sqlServicios = "DELETE FROM citas_servicios WHERE cita_id = ?";
         try (PreparedStatement psServicios = connection.prepareStatement(sqlServicios)) {
             psServicios.setInt(1, id);
             psServicios.executeUpdate();
         }
 
-        // 2️⃣ Luego eliminar la cita
+        // eliminar la cita
         String sqlCita = "DELETE FROM citas WHERE id=?";
         try (PreparedStatement psCita = connection.prepareStatement(sqlCita)) {
             psCita.setInt(1, id);

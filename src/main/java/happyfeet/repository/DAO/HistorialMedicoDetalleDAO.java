@@ -24,7 +24,7 @@ public class HistorialMedicoDetalleDAO implements IHistorialMedicoDetalle {
         this.connection = connection;
         this.historialDAO = new HistorialMedicoDAO(connection);
         this.inventarioDAO = new InventarioDAO(connection);
-        this.serviciosDAO = new ServiciosDAO(connection); // ✅ ahora pasamos connection
+        this.serviciosDAO = new ServiciosDAO(connection);
     }
 
     @Override
