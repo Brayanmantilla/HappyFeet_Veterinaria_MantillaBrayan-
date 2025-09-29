@@ -84,7 +84,7 @@ public class Conexion {
      * Método para probar la conexión
      */
     public static void main(String[] args) {
-        System.out.println("🔌 Sistema de Gestión Veterinaria - Happy Feet");
+        System.out.println("Sistema de Gestión Veterinaria - Happy Feet");
         System.out.println("═══════════════════════════════════════════════\n");
 
         Connection conexion = Conexion.getConexion();
@@ -94,7 +94,7 @@ public class Conexion {
             System.out.println("║         CONEXIÓN EXITOSA A LA BD       ║");
             System.out.println("╚════════════════════════════════════════╝");
             System.out.println("\nBase de datos: " + baseDatos);
-            System.out.println("👤 Usuario: " + usuario);
+            System.out.println("Usuario: " + usuario);
 
             try {
                 conexion.close();
