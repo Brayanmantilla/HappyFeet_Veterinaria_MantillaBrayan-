@@ -91,7 +91,7 @@ public class Conexion {
 
         if (conexion != null) {
             System.out.println("╔════════════════════════════════════════╗");
-            System.out.println("║         CONEXIÓN EXITOSA A LA BD       ║");
+            System.out.println("║         CONEXIÓN EXITOSA A LA BD        ║");
             System.out.println("╚════════════════════════════════════════╝");
             System.out.println("\nBase de datos: " + baseDatos);
             System.out.println("Usuario: " + usuario);

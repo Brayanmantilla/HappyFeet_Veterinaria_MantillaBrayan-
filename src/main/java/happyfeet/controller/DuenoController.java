@@ -36,11 +36,11 @@ public class DuenoController {
             // Orden correcto según el constructor
             Dueno dueno = new Dueno(
                     0,
-                    telefono,
-                    email,
-                    documento,
                     nombre,
-                    direccion
+                    documento,   
+                    direccion,
+                    telefono,
+                    email
             );
 
             if (duenoService.registrarDueno(dueno)) {
