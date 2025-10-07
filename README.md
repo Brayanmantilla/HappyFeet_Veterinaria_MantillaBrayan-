@@ -67,6 +67,12 @@ Este sistema integral digitaliza y centraliza todas las operaciones de la clíni
   - Niveles: Bronce (0-199), Plata (200-499), Oro (500-999), Diamante (1000+)
   - Actualización automática de niveles
   - Beneficios exclusivos por nivel
+ 
+### 7. Exportar Historial Clinico de la Mascota
+  - Se generara un reporte para imprimir de toda la informacion de la mascota:
+        - Datos mascota
+        - Datos dueño
+        - Historial Medico
 
 ## 🗄️ Modelo de Base de Datos
 
